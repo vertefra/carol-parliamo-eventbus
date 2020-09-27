@@ -1,10 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const axios = require("axios");
 require("dotenv").config();
 const app = express();
 const { MONGO_USR, MONGO_PSW, MONGO_DB } = process.env;
 const MONGO_URI = `mongodb+srv://${MONGO_USR}:${MONGO_PSW}@cluster0-fg0dv.gcp.mongodb.net/${MONGO_DB}?retryWrites=true&w=majority`;
+
+// SERVICES
+
+const albert_chat_server = "http://127.0.0.1:5000";
 
 // Mongo connection
 
@@ -27,9 +32,17 @@ app.use(express.json());
 
 // listeners
 
-app.get("/events", (req, res) => {
-  if (req) {
-    res.send("got it");
+app.post("/events", (req, res) => {
+  if (req.body) {
+    const { type, payload } = req.body;
+
+    // should store the event here
+
+    // EVENT DISPATCHER
+
+    axios.post(albert_chat_server, payload);
+
+    axios;
   }
 });
 
