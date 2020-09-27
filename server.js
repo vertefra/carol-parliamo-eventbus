@@ -27,8 +27,10 @@ app.use(express.json());
 
 // listeners
 
-app.post("/events", (req, res) => {
-  console.log(req);
+app.get("/events", (req, res) => {
+  if (req) {
+    res.send("got it");
+  }
 });
 
 app.listen(process.env.PORT || 3005, () => {
