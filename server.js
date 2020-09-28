@@ -11,6 +11,7 @@ const MONGO_URI = `mongodb+srv://${MONGO_USR}:${MONGO_PSW}@cluster0-fg0dv.gcp.mo
 
 const chat_server = "http://127.0.0.1:5000";
 const albert_auth_server = "http://127.0.0.1:3003";
+const isaac_query_server = "http://127.0.0.1:3002";
 
 // Mongo connection
 
@@ -33,7 +34,7 @@ app.use(express.json());
 
 // listeners
 
-app.post(`/events`, (req, res) => {
+app.post(`/events`, async (req, res) => {
   if (req.body) {
     const event = req.body;
 
@@ -41,17 +42,27 @@ app.post(`/events`, (req, res) => {
     console.log("payload received: ", event);
 
     // EVENT DISPATCHER
+    console.log("dispatching");
     try {
-      console.log("dispatching");
-
-      axios.post(`${albert_auth_server}/events`, event);
-      axios.post(`${chat_server}/events`, event);
+      const res = await axios.post(`${albert_auth_server}/events`, event);
+      console.log(res.data);
     } catch (err) {
-      console.log("service error: ", err);
-      res.status(500).json({
-        status: "internal error",
-        message: "experiencing problem dispatching event",
-      });
+      console.log("ALBERT didnt receive the event => ", event);
+      console.log(err.response.data);
+    }
+    try {
+      const res = await axios.post(`${chat_server}/events`, event);
+      console.log(res.data);
+    } catch (err) {
+      console.log("chat server didnt receive the event => ", event);
+      console.log(err.response.data);
+    }
+    try {
+      const res = await axios.post(`${isaac_query_server}/events`, event);
+      console.log(res.data);
+    } catch (err) {
+      console.log("Isaac didnt receive the event => ", event);
+      console.log(err.response.data);
     }
     res.status(200).json({ status: "ok" });
   }
