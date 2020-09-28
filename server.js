@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 const { MONGO_USR, MONGO_PSW, MONGO_DB } = process.env;
 const MONGO_URI = `mongodb+srv://${MONGO_USR}:${MONGO_PSW}@cluster0-fg0dv.gcp.mongodb.net/${MONGO_DB}?retryWrites=true&w=majority`;
-
+const Event = require("./eventModel");
 // SERVICES
 
 const chat_server = "http://127.0.0.1:5000";
@@ -40,6 +40,18 @@ app.post(`/events`, async (req, res) => {
 
     // should store the event here
     console.log("payload received: ", event);
+
+    // converting the object payload into a string to
+    // store in mongo
+
+    Event.create(
+      { type: event.type, payload: event.payload },
+      (err, createdEvent) => {
+        createdEvent
+          ? console.log("event stored")
+          : console.log("failed to store", err);
+      }
+    );
 
     // EVENT DISPATCHER
     console.log("dispatching");
