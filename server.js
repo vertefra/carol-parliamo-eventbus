@@ -41,9 +41,6 @@ app.post(`/events`, async (req, res) => {
     // should store the event here
     console.log("payload received: ", event);
 
-    // converting the object payload into a string to
-    // store in mongo
-
     Event.create(
       { type: event.type, payload: event.payload },
       (err, createdEvent) => {
@@ -77,6 +74,8 @@ app.post(`/events`, async (req, res) => {
       console.log(err.response.data);
     }
     res.status(200).json({ status: "ok" });
+  } else {
+    res.status(404).json({ error: "some kind of error " });
   }
 });
 
