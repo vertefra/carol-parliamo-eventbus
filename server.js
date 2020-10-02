@@ -9,7 +9,7 @@ const MONGO_URI = `mongodb+srv://${MONGO_USR}:${MONGO_PSW}@cluster0-fg0dv.gcp.mo
 const Event = require("./eventModel");
 // SERVICES
 
-const leonardo_chat_service = "http://68.183.126.73";
+const leonardo_chat_service = "http://127.0.0.1:5000";
 const albert_auth_server = "http://127.0.0.1:3003";
 const isaac_query_server = "http://127.0.0.1:3002";
 
