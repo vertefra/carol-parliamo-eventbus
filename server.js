@@ -9,7 +9,7 @@ const MONGO_URI = `mongodb+srv://${MONGO_USR}:${MONGO_PSW}@cluster0-fg0dv.gcp.mo
 const Event = require("./eventModel");
 // SERVICES
 
-const leonardo_chat_service = "68.183.126.73";
+const leonardo_chat_service = "http://68.183.126.73";
 const albert_auth_server = "http://127.0.0.1:3003";
 const isaac_query_server = "http://127.0.0.1:3002";
 
@@ -53,11 +53,11 @@ app.post(`/events`, async (req, res) => {
     // EVENT DISPATCHER
     console.log("dispatching");
     try {
-      const resp = await axios.post(`${leonard0_chat_server}/events`, event);
+      const resp = await axios.post(`${leonardo_chat_service}/events`, event);
       console.log(resp.data);
     } catch (err) {
       console.log("chat server didnt receive the event => ", event);
-      console.log(err.response.data);
+      console.log(err);
     }
     try {
       const resp = await axios.post(`${albert_auth_server}/events`, event);
