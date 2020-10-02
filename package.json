@@ -4,7 +4,7 @@
   "description": "event bus for chat services",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon"
+    "start": "nodemon server.js --watch"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.10.7"
+    "mongoose": "^5.10.7",
+    "nodemon": "^2.0.4"
   }
 }

@@ -18,4 +18,4 @@ payload: { sid: '3490191ce08048cbbf09dba4915cb35f', username: 'verte@gmail.com' 
 
 ## userSignUp
 
-payload: { "username": "verte@gmail.com"}
+payload: { "username": "verte@gmail.com", "sid":'3490191ce08048cbbf09dba4915cb35f'}
