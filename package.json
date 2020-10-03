@@ -4,7 +4,7 @@
   "description": "event bus for chat services",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js --watch"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
